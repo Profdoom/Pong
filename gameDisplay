@@ -1,0 +1,55 @@
+package com.EdwinDumalag;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Created by Edwin on 3/23/2015.
+ */
+public class gameDisplay extends Pong{
+    static GameDisplay gamePanel;   //draw the game components here
+
+    static boolean gameOver;      //Used to work out what message, if any, to display on the screen
+    static boolean removeInstructions = false;  // Same as above
+
+
+    public static class GameDisplay extends JPanel {
+
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            //System.out.println("* Repaint *");
+
+            if (gameOver == true) {
+                g.drawString( "Game over!", 20, 30 );
+                System.exit(0);
+
+
+
+
+                return;
+            }
+            g.setColor(Color.red);//Sets color for "Game Over" to red. ED
+
+            if (removeInstructions == false ) {
+                g.drawString("Pong! Press up or down to move", 20, 30);
+                g.drawString("Press q to quit", 20, 60);
+
+            }
+
+            g.setColor(Color.red);//reset color for instruction text to red.
+
+            //While game is playing, these methods draw the ball, paddles, using the global variables
+            //Other parts of the code will modify these variables
+
+            //Ball - a circle is just an oval with the height equal to the width
+            g.drawOval((int)ballX, (int)ballY, ballSize, ballSize);
+            //Computer paddle
+            g.drawLine(paddleDistanceFromSide, computerPaddleY - paddleSize, paddleDistanceFromSide, computerPaddleY + paddleSize);
+            //Human paddle
+            g.drawLine(screenSize - paddleDistanceFromSide, humanPaddleY - paddleSize, screenSize - paddleDistanceFromSide, humanPaddleY + paddleSize);
+
+        }
+    }
+}
